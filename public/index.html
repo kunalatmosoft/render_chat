@@ -2,8 +2,8 @@
 <html>
 <head>
     <title>AtmoChat</title>
+    <link rel="icon" href="path/to/your/favicon.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="icon" href="https://cdn2.iconfinder.com/data/icons/bubble-chat-5/512/chat-application-512.png" type="image/x-icon">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -54,6 +54,7 @@
             max-width: 60%;
             position: relative;
             animation: fadeIn 0.5s;
+            word-wrap: break-word;
         }
 
         #messages li:nth-child(odd) {
@@ -111,7 +112,7 @@
 
         #emoji-picker {
             position: absolute;
-            bottom: 50px;
+            bottom: 60px;
             left: 10px;
             background-color: white;
             border: 1px solid #ddd;
@@ -156,16 +157,70 @@
 
         /* Responsive design */
         @media (max-width: 600px) {
+            #navbar {
+                font-size: 20px;
+            }
+
             #messages li {
                 max-width: 80%;
+                padding: 8px;
+            }
+
+            #form {
+                padding: 5px;
             }
 
             #input {
                 font-size: 14px;
+                padding: 8px;
             }
 
             #button {
                 font-size: 14px;
+                padding: 8px 15px;
+            }
+
+            #attach, #emoji {
+                font-size: 20px;
+            }
+
+            #emoji-picker {
+                bottom: 70px;
+                max-height: 120px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            #navbar {
+                font-size: 18px;
+            }
+
+            #messages li {
+                max-width: 90%;
+                padding: 6px;
+            }
+
+            #form {
+                padding: 3px;
+            }
+
+            #input {
+                font-size: 12px;
+                padding: 6px;
+            }
+
+            #button {
+                font-size: 12px;
+                padding: 6px 10px;
+            }
+
+            #attach, #emoji {
+                font-size: 18px;
+            }
+
+            #emoji-picker {
+                bottom: 80px;
+                max-height: 100px;
             }
         }
     </style>
@@ -235,3 +290,4 @@
     </script>
 </body>
 </html>
+
