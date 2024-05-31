@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Chat Application</title>
+    <title>AtmoChat</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="icon" href="https://cdn2.iconfinder.com/data/icons/bubble-chat-5/512/chat-application-512.png" type="image/x-icon">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,6 +13,27 @@
             display: flex;
             flex-direction: column;
             height: 100vh;
+        }
+
+        #navbar {
+            background-color: #075e54;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #navbar .material-icons {
+            margin-right: 10px;
+            font-size: 30px;
+            vertical-align: middle;
         }
 
         #messages {
@@ -48,6 +71,8 @@
             padding: 10px;
             background-color: #f0f0f0;
             border-top: 1px solid #ddd;
+            align-items: center;
+            position: relative;
         }
 
         #input {
@@ -73,6 +98,43 @@
             background-color: #075e54;
         }
 
+        #attach, #emoji {
+            margin-right: 10px;
+            cursor: pointer;
+            font-size: 24px;
+            color: #888;
+        }
+
+        #attach:hover, #emoji:hover {
+            color: #555;
+        }
+
+        #emoji-picker {
+            position: absolute;
+            bottom: 50px;
+            left: 10px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            display: none;
+            padding: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            max-height: 150px;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        #emoji-picker span {
+            cursor: pointer;
+            font-size: 24px;
+            padding: 5px;
+        }
+
+        #emoji-picker span:hover {
+            background-color: #f0f0f0;
+            border-radius: 5px;
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -91,13 +153,37 @@
         ::-webkit-scrollbar-thumb:hover {
             background-color: #555;
         }
+
+        /* Responsive design */
+        @media (max-width: 600px) {
+            #messages li {
+                max-width: 80%;
+            }
+
+            #input {
+                font-size: 14px;
+            }
+
+            #button {
+                font-size: 14px;
+            }
+        }
     </style>
 </head>
 <body>
+    <div id="navbar">
+        <span class="material-icons">chat</span> AtmoChat
+    </div>
     <ul id="messages"></ul>
     <form id="form" action="">
+        <span id="emoji" class="material-icons">insert_emoticon</span>
+        <span id="attach" class="material-icons">attach_file</span>
         <input id="input" autocomplete="off" placeholder="Type a message..."/>
         <button id="button">Send</button>
+        <div id="emoji-picker">
+            <span>😀</span><span>😁</span><span>😂</span><span>🤣</span><span>😃</span><span>😄</span><span>😅</span><span>😆</span><span>😉</span><span>😊</span><span>😋</span><span>😎</span><span>😍</span><span>😘</span><span>🥰</span>
+            <!-- Add more emojis as needed -->
+        </div>
     </form>
 
     <script src="/socket.io/socket.io.js"></script>
@@ -107,6 +193,8 @@
         var form = document.getElementById('form');
         var input = document.getElementById('input');
         var messages = document.getElementById('messages');
+        var emojiPicker = document.getElementById('emoji-picker');
+        var emojiButton = document.getElementById('emoji');
 
         form.addEventListener('submit', function(event) {
             event.preventDefault();
@@ -121,6 +209,28 @@
             item.textContent = msg;
             messages.appendChild(item);
             window.scrollTo(0, document.body.scrollHeight);
+        });
+
+        emojiButton.addEventListener('click', function(event) {
+            event.stopPropagation();
+            emojiPicker.style.display = (emojiPicker.style.display === 'block') ? 'none' : 'block';
+        });
+
+        emojiPicker.addEventListener('click', function(event) {
+            if (event.target.tagName === 'SPAN') {
+                input.value += event.target.textContent;
+                emojiPicker.style.display = 'none';
+            }
+        });
+
+        document.addEventListener('click', function(event) {
+            if (!form.contains(event.target)) {
+                emojiPicker.style.display = 'none';
+            }
+        });
+
+        input.addEventListener('click', function() {
+            emojiPicker.style.display = 'none';
         });
     </script>
 </body>
