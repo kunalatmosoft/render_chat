@@ -13,7 +13,6 @@
             display: flex;
             flex-direction: column;
             height: 100vh;
-            overflow: hidden;
         }
 
         #navbar {
@@ -45,8 +44,6 @@
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            scrollbar-width: thin;
-            scrollbar-color: #888 transparent;
         }
 
         #messages li {
@@ -77,7 +74,6 @@
             border-top: 1px solid #ddd;
             align-items: center;
             position: relative;
-            flex-shrink: 0;
         }
 
         #input {
@@ -238,10 +234,7 @@
         <span id="emoji" class="material-icons">insert_emoticon</span>
         <span id="attach" class="material-icons">attach_file</span>
         <input id="input" autocomplete="off" placeholder="Type a message..."/>
-
-        <button  id="button"><span class="material-symbols-outlined">
-send
-</span></button>
+        <button id="button">Send</button>
         <div id="emoji-picker">
             <span>😀</span><span>😁</span><span>😂</span><span>🤣</span><span>😃</span><span>😄</span><span>😅</span><span>😆</span><span>😉</span><span>😊</span><span>😋</span><span>😎</span><span>😍</span><span>😘</span><span>🥰</span>
             <!-- Add more emojis as needed -->
