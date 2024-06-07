@@ -1,2 +1,2 @@
-build command : npm install
-start command : npm start / node server.js
+## build command : npm install
+## start command : npm start / node server.js
